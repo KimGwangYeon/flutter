@@ -17,7 +17,7 @@ class CurrencyCard extends StatelessWidget {
     required this.isInverted,
     required this.order,
   });
-  Map pixel = {
+  final Map pixel = {
     0: 0,
     1: -10,
     2: -20,
