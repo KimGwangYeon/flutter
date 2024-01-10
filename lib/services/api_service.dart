@@ -9,23 +9,22 @@ class ApiService {
   static const String today = 'today';
 
   static Future<List<WebtoonModel>> getTodaysToons() async {
-    List<WebtoonModel> webtoonInstances = [];
+    List<WebtoonModel> webtoonInsTances = [];
     final url = Uri.parse('$baseUrl/$today');
-    final responce = await http.get(url);
-
-    if (responce.statusCode == 200) {
-      final List<dynamic> webtoons = jsonDecode(responce.body);
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      final List<dynamic> webtoons = jsonDecode(response.body);
       for (var webtoon in webtoons) {
-        webtoonInstances.add(WebtoonModel.fromJson(webtoon));
+        webtoonInsTances.add(WebtoonModel.fromJson(webtoon));
       }
-      return webtoonInstances;
+      return webtoonInsTances;
     }
     throw Error();
   }
 }
 
   // url에 요청을 보내기 위해서는 http 패키지가 필요하다
-  // 공식 패키지 보관소 pub.dev에 잘 나와있다(npm for Node.js and PyPl for Python)
+  // 공식 패키지 보관소 pub.dev에 잘 나p와있다(npm for Node.js and PyPl for Python)
   // 설치는 커맨드라인에 dart pub add http
   // 아니면 pubspec.yaml에 package와 버전넣고 저장하면 다운로드시작한다.
   //get이란 명령어는 너무 general해서 import package에 alias를 부여해서 쓴다.
