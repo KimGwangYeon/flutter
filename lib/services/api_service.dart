@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:toonflix/models/webtoon_detail_model.dart';
+import 'package:toonflix/models/webtoon_episode_model.dart';
 import 'package:toonflix/models/webtoon_model.dart';
 
 class ApiService {
@@ -21,6 +23,33 @@ class ApiService {
     }
     throw Error();
   }
+
+  static Future<WebtoonDetailModel> getToonsById(String id) async {
+    final url = Uri.parse('$baseUrl/$id');
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      final webtoon = jsonDecode(response.body);
+
+      return WebtoonDetailModel.fromJson(webtoon);
+    }
+    throw Error();
+  }
+
+  static Future<List<WebtoonEpisodeModel>> getLatestEpisodesById(
+      String id) async {
+    final url = Uri.parse('$baseUrl/$id/episodes');
+    final response = await http.get(url);
+    List<WebtoonEpisodeModel> episodesInstance = [];
+    if (response.statusCode == 200) {
+      final episodes = jsonDecode(response.body);
+      for (var episode in episodes) {
+        episodesInstance.add(WebtoonEpisodeModel.fromJson(episode));
+      }
+
+      return episodesInstance;
+    }
+    throw Error();
+  }
 }
 
   // url에 요청을 보내기 위해서는 http 패키지가 필요하다
@@ -34,3 +63,4 @@ class ApiService {
   // = 비동기(async programing)
   // 명령어 앞에 await을 붙여서 지시할 수 있는데, asynchronous function에만 가능하다(함수 선언 시에 async라고 붙여서 지정할 수 있다)
   // 보통 반환타입 future와 사용할 때가 많다 Future<Response>: 미래에 responce type을 반환받는 것
+
