@@ -13,6 +13,11 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.green,
+        shadowColor: Colors.black,
+        elevation: 2,
         title: const Text(
           '오늘의 웹툰',
           style: TextStyle(
@@ -20,11 +25,6 @@ class HomeScreen extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.green,
-        shadowColor: Colors.black,
-        elevation: 2,
       ),
       body: FutureBuilder(
         future: webtoons,
